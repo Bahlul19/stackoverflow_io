@@ -1,8 +1,13 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
+use Cake\Auth\DefaultPasswordHasher;
+//use Cake\Utility\Security;
+use Cake\ORM\TableRegistry;
+use Cake\Database\Query;
+use Cake\Event\EventManager;
 
+use Cake\Datasource\ConnectionManager;
 /**
  * UserRegistration Controller
  *
@@ -11,7 +16,9 @@ use App\Controller\AppController;
  * @method \App\Model\Entity\UserRegistration[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UserRegistrationController extends AppController
-{
+{        
+        private $connection;
+        private $table;
 
     /**
      * Index method
@@ -24,8 +31,19 @@ class UserRegistrationController extends AppController
     
     public function initialize() 
     {
-        parent::initialize();
+       parent::initialize();
+        $this->table = TableRegistry::get('user_registration');
+       // $this->connection = ConnectionManager::get('default');
+        //$this->table = TableRegistry::get('user_registration');
+        
+        //$this->table = TableRegistry::get('user_registration');
+        
+//        $this->viewBuilder()->setLayout("main");
+//        $this->loadModel("UserRegistration");
+        
+       // $this->table = TableRegistry::config('UserRegistration', ['table' => 'user_registration']);
         $this->viewBuilder()->setLayout("main");
+        $this->loadModel("UserRegistration");
     }
 
 
@@ -99,25 +117,6 @@ class UserRegistrationController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    
-    /*
-    public function add()
-    {
-        $userRegistration = $this->UserRegistration->newEntity();
-        if ($this->request->is('post')) {
-            $userRegistration = $this->UserRegistration->patchEntity($userRegistration, $this->request->getData());
-            if ($this->UserRegistration->save($userRegistration)) {
-                $this->Flash->success(__('The user registration has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user registration could not be saved. Please, try again.'));
-        }
-        $this->set(compact('userRegistration'));
-    }
-    */
-    
-    
 
     /**
      * Edit method
@@ -162,4 +161,50 @@ class UserRegistrationController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * Login method
+     *
+     * @param string|null $id User Registration id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    
+    public function login()
+    {
+        if($this->request->is('post'))
+        {   
+            $user = $this->Auth->identify();   
+            
+            //dd($user);
+          
+            if($user)
+            {
+                $this->Auth->setUser($user);
+                //$this->Flash->success('You are successfully login to the system');
+                //return $this->redirect(['controller'=>'UserRegistration','action'=>'index']);
+            
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            else
+            {
+                $this->Flash->error('Username and password not correct');
+            }            
+        }
+    }
+    
+    /**
+     * Logout method
+     *
+     * @param string|null $id User Registration id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    
+    public function logout()
+    {
+        $this->redirect($this->Auth->logout());
+        $this->Flash->success("Thanks for visiting");
+    }
+    
 }

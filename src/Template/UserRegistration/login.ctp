@@ -1,7 +1,7 @@
 <div class="row main">
         <div class="panel-heading">
 <div class="panel-title text-center">
-        <h1 class="title">Registration Form</h1>
+        <h1 class="title">Login Form</h1>
         <hr />
 </div>
 </div> 
@@ -12,19 +12,8 @@
 echo $this->Form->create(
         null,
         [
-            'url' => ['action' => 'save']
+            'url' => ['action' => 'login']
     ]); ?>    
-
-    
-<div class="form-group">
-<label for="name" class="cols-sm-2 control-label">Your Name</label>
-<div class="cols-sm-10">
-<div class="input-group">
-<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
-</div>
-</div>
-</div>
 
 <div class="form-group">
 <label for="email" class="cols-sm-2 control-label">Your Email</label>
@@ -49,11 +38,11 @@ echo $this->Form->create(
 
 
 <div class="form-group ">
-        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Login</button>
 </div>
     
     <div class="login-register">
-       <?= $this->Html->link(__('Login'),['controller'=>'UserRegistration','action'=>'login']) ?>
+       <?= $this->Html->link(__('Registration'),['controller'=>'UserRegistration','action'=>'add']) ?>
     </div>
     
 </form>
