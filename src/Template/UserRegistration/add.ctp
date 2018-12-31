@@ -1,25 +1,56 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\UserRegistration $userRegistration
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List User Registration'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="userRegistration form large-9 medium-8 columns content">
-    <?= $this->Form->create($userRegistration) ?>
-    <fieldset>
-        <legend><?= __('Add User Registration') ?></legend>
-        <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('email');
-            echo $this->Form->control('password');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row main">
+        <div class="panel-heading">
+<div class="panel-title text-center">
+        <h1 class="title">Registration Form</h1>
+        <hr />
+</div>
+</div> 
+<div class="main-login main-center">
+    
+    
+<?php 
+echo $this->Form->create(
+        null,
+        [
+            'url' => ['action' => 'save']
+    ]); ?>    
+
+    
+<div class="form-group">
+<label for="name" class="cols-sm-2 control-label">Your Name</label>
+<div class="cols-sm-10">
+<div class="input-group">
+<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<label for="email" class="cols-sm-2 control-label">Your Email</label>
+<div class="cols-sm-10">
+<div class="input-group">
+<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="password" class="cols-sm-2 control-label">Password</label>
+<div class="cols-sm-10">
+<div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+        <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+</div>
+</div>
+</div>
+
+
+<div class="form-group ">
+        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+</div>
+</form>
+        </div>
 </div>
